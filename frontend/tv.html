@@ -1,12 +1,4 @@
-
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel de Atendimento</title>
-
-    <style>
+<style>
         * {
             box-sizing: border-box;
             margin: 0;
@@ -23,17 +15,27 @@
             overflow: hidden;
         }
 
-        /* CONTAINER PRINCIPAL */
         .tv-container {
             display: flex;
-            flex-direction: row;
-            align-items: stretch;
             width: 95vw;
             height: 90vh;
             gap: 18px;
         }
 
-        /* CAIXAS */
+        .left-panel {
+            display: flex;
+            flex-direction: column;
+            width: 35%;
+            gap: 18px;
+        }
+
+        .right-panel {
+            display: flex;
+            flex-direction: column;
+            width: 65%;
+            gap: 18px;
+        }
+
         .box {
             background-color: #63d4f4;
             border: 6px solid #b39b82;
@@ -45,86 +47,87 @@
             align-items: center;
             text-align: center;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            overflow: hidden;
         }
 
-        /* GUICHÊ */
-        .local-box {
-            width: 30%;
-            flex-shrink: 0;
-        }
-
-        .local-box .box-title {
+        .box-title {
             color: #ffffff;
-            font-size: 2.5vw;
+            font-size: 2.2vw;
             font-weight: bold;
             text-transform: uppercase;
-            margin-bottom: 20px;
+            text-shadow: 1px 1px 2px rgba (0, 0, 0, 0.4);
+            margin-bottom: 12px;
+        }
+
+
+        .local-box {
+            flex: 1;
         }
 
         .local-number {
             color: #d12c2c;
-            font-size: 8vw;
+            font-size: 9vw;
             font-weight: bold;
             line-height: 1;
         }
 
-        /* ÚLTIMAS CHAMADAS */
+        .local-type {
+            color: #555;
+            font-size: 1.8vw;
+            font-weight: bold;
+            margin-top: 6px;
+        }
+
         .history-box {
-            width: 30%;
+            flex: 1;
             justify-content: flex-start;
-            padding-top: 25px;
-            flex-shrink: 0;
+            align-items: flex-start;
         }
 
         .history-box .box-title {
-            color: #ffffff;
-            font-size: 2vw;
-            font-weight: bold;
-            text-transform: uppercase;
-            margin-bottom: 20px;
+            font-size: 1.8vw;
+            align-self: center;
         }
 
         #history-list {
             list-style: none;
             width: 100%;
             color: #d12c2c;
-            font-size: 2vw;
+            font-size: 1.5vw;
             font-weight: bold;
-            text-align: center;
+            text-align: left;
         }
 
         #history-list li {
-            margin-bottom: 12px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid rgba(0, 0, 0, 0.15);
+            margin-bottom: 8px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            padding-bottom: 5px;
         }
 
-        /* PACIENTE */
         .patient-box {
-            width: 40%;
-            flex-shrink: 0;
-        }
-
-        .patient-box .box-title {
-            color: #ffffff;
-            font-size: 2.5vw;
-            font-weight: bold;
-            text-transform: uppercase;
-            margin-bottom: 20px;
+            flex: 3;
         }
 
         .patient-name {
             color: #d12c2c;
-            font-size: 5vw;
+            font-size: 6.5vw;
             font-weight: bold;
-            line-height: 1.1;
+            line-height: 1.2;
             word-break: break-word;
-            overflow-wrap: anywhere;
         }
 
-        /* ANIMAÇÃO */
+        .logo-box {
+            flex: 1;
+        }
+
+        .logo-text {
+            color: #8c3b7a;
+            font-size: 3.5vw;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
         @keyframes flash {
+
             0%,
             100% {
                 opacity: 1;
@@ -138,90 +141,34 @@
         .flash {
             animation: flash 0.5s ease 3;
         }
-
-        /* RESPONSIVO */
-        @media (max-width: 700px) {
-            body {
-                overflow: auto;
-            }
-
-            .tv-container {
-                width: 95vw;
-                height: auto;
-                min-height: 90vh;
-                flex-direction: column;
-            }
-
-            .local-box,
-            .history-box,
-            .patient-box {
-                width: 100%;
-                min-height: 250px;
-            }
-
-            .local-number {
-                font-size: 15vw;
-            }
-
-            .patient-name {
-                font-size: 10vw;
-            }
-
-            .box-title,
-            .local-box .box-title,
-            .history-box .box-title,
-            .patient-box .box-title {
-                font-size: 6vw;
-            }
-
-            #history-list {
-                font-size: 5vw;
-            }
-        }
     </style>
+    <title> Midia Indoor - TV</title>
 </head>
 
 <body>
-
     <div class="tv-container">
-
-        <!-- GUICHÊ -->
-        <div class="box local-box">
-            <div class="box-title">GUICHÊ</div>
-
-            <div class="local-number" id="local-number">
-                --
-            </div>
-        </div>
-
-
-        <!-- ÚLTIMAS CHAMADAS -->
-        <div class="box history-box">
-            <div class="box-title">
-                ÚLTIMAS CHAMADAS
+        <div class="left-panel">
+            <div class="box local-box">
+                <div class="box-title" id="local-tipo"> GUICHE</div>
+                <div class="local-number" id="local-numero">--</div>
             </div>
 
-            <ul id="history-list">
-                <li>--</li>
-                <li>--</li>
-                <li>--</li>
-                <li>--</li>
-            </ul>
-        </div>
-
-
-        <!-- PACIENTE -->
-        <div class="box patient-box">
-            <div class="box-title">
-                PACIENTE
+            <div class="box history-box">
+                <div class="box-title">ULTIMAS CHAMADAS</div>
+                <ul id="history-list"></ul>
             </div>
 
-            <div class="patient-name" id="patient-name">
-                AGUARDANDO...
-            </div>
-        </div>
+            <div class="right-panel">
+                <div class="box patient-box">
+                    <div class="box-title">PACIENTE</div>
+                    <div class="patient-name" id="patient-name">AGUARDANDO...</div>
 
-    </div>
+                    <div class="box logo-box">
+                        <div class="logo-text">🏥Sistema Hospitalar</div>
+                    </div>
+                </div>
+            </div>
+
 <script>
                 let ultimold = null;
                 function atualizar() {
