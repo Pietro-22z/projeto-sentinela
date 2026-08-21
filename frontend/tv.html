@@ -4,8 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=x, initial-scale=1.0">
-   <style>
-* {
+ <style>* {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -21,24 +20,26 @@ body {
     overflow: hidden;
 }
 
-/* TODOS OS ELEMENTOS NA MESMA LINHA */
+/* TODOS OS ELEMENTOS LADO A LADO */
 .tv-container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
     width: 95vw;
     height: 90vh;
     gap: 15px;
 }
 
-/* Remove a divisão dos painéis */
+/* Mantém os elementos internos na mesma linha */
 .left-panel,
 .right-panel {
     display: contents;
 }
 
-/* Cada elemento ocupa uma coluna */
+/* Cada elemento ocupa uma parte da tela */
 .box {
-    width: 100%;
+    flex: 1;
+    min-width: 0;
     height: 100%;
 
     background-color: #fff7f7;
@@ -156,7 +157,7 @@ body {
 /* Telas menores */
 @media (max-width: 900px) {
     .tv-container {
-        grid-template-columns: repeat(4, 1fr);
+        flex-direction: row;
         gap: 8px;
         width: 98vw;
         height: 90vh;
@@ -183,7 +184,7 @@ body {
         font-size: 2.5vw;
     }
 }
- </style>
+</style>
     <title> Midia Indoor - TV</title>
 </head>
 
