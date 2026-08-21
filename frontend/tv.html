@@ -5,7 +5,15 @@
     <meta charset="UTF-8">
     <title>Document</title>
     <meta name="viewport" content="width=x, initial-scale=1.0">
-    <style>
+   
+    <title> Midia Indoor - TV</title>
+</head>
+Entrar
+Cadastre-se grátis
+Você disse:
+Captura de tela 2026-08-21 103140-1024.jpg
+
+<style>
         * {
             box-sizing: border-box;
             margin: 0;
@@ -148,34 +156,328 @@
         .flash {
             animation: flash 0.5s ease 3;
         }
+    </style> coloque os elementos um do lado do outro
+
+O ChatGPT disse:
+Para deixar os elementos lado a lado, você precisa mudar a estrutura do .tv-container para que os painéis internos fiquem em linha e ajustar as larguras.
+
+Use estas alterações no CSS:
+
+.tv-container {
+    display: flex;
+    flex-direction: row;
+    width: 95vw;
+    height: 90vh;
+    gap: 18px;
+}
+
+.left-panel {
+    display: flex;
+    flex-direction: column;
+    width: 35%;
+    gap: 18px;
+}
+
+.right-panel {
+    display: flex;
+    flex-direction: column;
+    width: 65%;
+    gap: 18px;
+}
+
+
+Importante: pelo print, parece que você quer também que Paciente, Guiche e Últimas Chamadas fiquem todos na mesma linha, em vez de Guiche e Últimas Chamadas ficarem empilhados.
+
+Nesse caso, altere para:
+
+.tv-container {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    width: 95vw;
+    height: 90vh;
+    gap: 18px;
+}
+
+.left-panel,
+.right-panel {
+    display: flex;
+    flex-direction: row;
+    gap: 18px;
+    width: 100%;
+}
+
+.left-panel {
+    width: 35%;
+}
+
+.right-panel {
+    width: 65%;
+}
+
+.box {
+    flex: 1;
+}
+
+
+E, se quiser os três blocos exatamente lado a lado, a estrutura HTML deve ser algo como:
+
+<div class="tv-container">
+    <div class="box local-box">
+        <div class="box-title">GUICHE</div>
+        <div class="local-number">--</div>
+    </div>
+
+    <div class="box history-box">
+        <div class="box-title">ÚLTIMAS CHAMADAS</div>
+        <ul id="history-list"></ul>
+    </div>
+
+    <div class="box patient-box">
+        <div class="box-title">PACIENTE</div>
+        <div class="patient-name">AGUARDANDO...</div>
+    </div>
+</div>
+
+
+Assim o resultado será:
+
+[ GUICHÊ ] [ ÚLTIMAS CHAMADAS ] [ PACIENTE ]
+
+em uma única linha.
+
+
+
+Você disse:
+
+coloque tudo num codigo so
+
+O ChatGPT disse:
+Claro. Aqui está tudo em um único código HTML, já deixando Guichê, Últimas Chamadas e Paciente lado a lado:
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Atendimento</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #5c4033;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* CONTAINER PRINCIPAL */
+        .tv-container {
+            display: flex;
+            flex-direction: row;
+            align-items: stretch;
+            width: 95vw;
+            height: 90vh;
+            gap: 18px;
+        }
+
+        /* CAIXAS */
+        .box {
+            background-color: #63d4f4;
+            border: 6px solid #b39b82;
+            border-radius: 15px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        /* GUICHÊ */
+        .local-box {
+            width: 30%;
+            flex-shrink: 0;
+        }
+
+        .local-box .box-title {
+            color: #ffffff;
+            font-size: 2.5vw;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .local-number {
+            color: #d12c2c;
+            font-size: 8vw;
+            font-weight: bold;
+            line-height: 1;
+        }
+
+        /* ÚLTIMAS CHAMADAS */
+        .history-box {
+            width: 30%;
+            justify-content: flex-start;
+            padding-top: 25px;
+            flex-shrink: 0;
+        }
+
+        .history-box .box-title {
+            color: #ffffff;
+            font-size: 2vw;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        #history-list {
+            list-style: none;
+            width: 100%;
+            color: #d12c2c;
+            font-size: 2vw;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        #history-list li {
+            margin-bottom: 12px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(0, 0, 0, 0.15);
+        }
+
+        /* PACIENTE */
+        .patient-box {
+            width: 40%;
+            flex-shrink: 0;
+        }
+
+        .patient-box .box-title {
+            color: #ffffff;
+            font-size: 2.5vw;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .patient-name {
+            color: #d12c2c;
+            font-size: 5vw;
+            font-weight: bold;
+            line-height: 1.1;
+            word-break: break-word;
+            overflow-wrap: anywhere;
+        }
+
+        /* ANIMAÇÃO */
+        @keyframes flash {
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.3;
+            }
+        }
+
+        .flash {
+            animation: flash 0.5s ease 3;
+        }
+
+        /* RESPONSIVO */
+        @media (max-width: 700px) {
+            body {
+                overflow: auto;
+            }
+
+            .tv-container {
+                width: 95vw;
+                height: auto;
+                min-height: 90vh;
+                flex-direction: column;
+            }
+
+            .local-box,
+            .history-box,
+            .patient-box {
+                width: 100%;
+                min-height: 250px;
+            }
+
+            .local-number {
+                font-size: 15vw;
+            }
+
+            .patient-name {
+                font-size: 10vw;
+            }
+
+            .box-title,
+            .local-box .box-title,
+            .history-box .box-title,
+            .patient-box .box-title {
+                font-size: 6vw;
+            }
+
+            #history-list {
+                font-size: 5vw;
+            }
+        }
     </style>
-    <title> Midia Indoor - TV</title>
 </head>
 
 <body>
+
     <div class="tv-container">
-        <div class="left-panel">
-            <div class="box local-box">
-                <div class="box-title" id="local-tipo"> GUICHE</div>
-                <div class="local-number" id="local-numero">--</div>
+
+        <!-- GUICHÊ -->
+        <div class="box local-box">
+            <div class="box-title">GUICHÊ</div>
+
+            <div class="local-number" id="local-number">
+                --
+            </div>
+        </div>
+
+
+        <!-- ÚLTIMAS CHAMADAS -->
+        <div class="box history-box">
+            <div class="box-title">
+                ÚLTIMAS CHAMADAS
             </div>
 
-            <div class="box history-box">
-                <div class="box-title">ULTIMAS CHAMADAS</div>
-                <ul id="history-list"></ul>
+            <ul id="history-list">
+                <li>--</li>
+                <li>--</li>
+                <li>--</li>
+                <li>--</li>
+            </ul>
+        </div>
+
+
+        <!-- PACIENTE -->
+        <div class="box patient-box">
+            <div class="box-title">
+                PACIENTE
             </div>
 
-            <div class="right-panel">
-                <div class="box patient-box">
-                    <div class="box-title">PACIENTE</div>
-                    <div class="patient-name" id="patient-name">AGUARDANDO...</div>
-
-                    <div class="box logo-box">
-                        <div class="logo-text">🏥Sistema Hospitalar</div>
-                    </div>
-                </div>
+            <div class="patient-name" id="patient-name">
+                AGUARDANDO...
             </div>
+        </div>
 
+    </div>
             <script>
                 let ultimold = null;
                 function atualizar() {
